@@ -1,5 +1,7 @@
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+
 const call = async (url, opts) => {
-  const res = await fetch(url, { headers: { 'Content-Type': 'application/json' }, ...opts });
+  const res = await fetch(`${API_BASE_URL}${url}`, { headers: { 'Content-Type': 'application/json' }, ...opts });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.message || data.error || 'Request failed');
   return data;
